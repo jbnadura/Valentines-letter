@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+        }
+
+        .card-container {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Page 1 */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            cursor: pointer;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .page.hidden {
+            display: none;
+        }
+
+        .page-1 {
+            background: linear-gradient(135deg, #fde8f0 0%, #f8d7e8 50%, #fde8f0 100%);
+        }
+
+        /* Tap indicator */
+        .tap-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            color: #d94a7a;
+            animation: pulse 2s infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .tap-indicator::before {
+            content: '💌';
+            font-size: 40px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.6; transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Stars decoration */
+        .star {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('img/36b0ed22-6247-46fa-a04f-d9c1cdd55432_removalai_preview.png') center/contain no-repeat;
+            animation: twinkle 3s infinite;
+        }
+
+        .star-1 { top: 80px; left: 15%; width: 35px; height: 35px; animation-delay: 0s; }
+        .star-2 { top: 100px; right: 20%; width: 25px; height: 25px; animation-delay: 1s; }
+        .star-3 { top: 45%; left: 10%; width: 20px; height: 20px; animation-delay: 2s; }
+        .star-4 { bottom: 150px; right: 15%; width: 30px; height: 30px; animation-delay: 1.5s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* Top design with hearts branch */
+        .top-design {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 300px;
+            background: url('img/top_design.png') top right/contain no-repeat;
+            opacity: 0.9;
+        }
+
+        .header-text {
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: #c2466d;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .flowers {
+            margin: 20px 0;
+        }
+
+        .flowers img {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 5px 15px rgba(217, 74, 122, 0.3));
+        }
+
+        .main-title {
+            font-size: 48px;
+            color: #d94a7a;
+            text-align: center;
+            margin: 30px 0;
+            font-weight: 400;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(217, 74, 122, 0.2);
+        }
+
+        .love-text {
+            font-size: 32px;
+            color: #d94a7a;
+            font-style: italic;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Hearts decoration */
+        .heart-deco {
+            position: absolute;
+            font-size: 22px;
+            color: #ff6b9d;
+            animation: float 4s infinite ease-in-out;
+            filter: drop-shadow(0 2px 5px rgba(255, 107, 157, 0.3));
+        }
+
+        .heart-1 { top: 25%; left: 10%; animation-delay: 0s; }
+        .heart-2 { top: 60%; right: 12%; animation-delay: 1s; }
+        .heart-3 { bottom: 20%; left: 15%; animation-delay: 2s; }
+        .heart-4 { top: 40%; right: 8%; animation-delay: 0.5s; }
+        .heart-5 { bottom: 30%; right: 20%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Page 2 */
+        .page-2 {
+            background: linear-gradient(135deg, #fde8f0 0%, #f8d7e8 100%);
+            padding: 60px 30px;
+            cursor: default;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 50px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 25px 70px rgba(217, 74, 122, 0.25);
+            position: relative;
+            animation: fadeIn 0.8s ease;
+            border: 3px solid rgba(217, 74, 122, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Decorative hearts around the card */
+        .message-card::before {
+            content: '💕';
+            position: absolute;
+            top: -20px;
+            right: 40px;
+            font-size: 38px;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        .message-card::after {
+            content: '💖';
+            position: absolute;
+            bottom: -15px;
+            left: 40px;
+            font-size: 32px;
+            animation: heartBeat 1.5s infinite 0.5s;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Corner decorations */
+        .corner-heart {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.5;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .corner-heart-1 {
+            top: 20px;
+            left: 20px;
+        }
+
+        .corner-heart-2 {
+            bottom: 20px;
+            right: 20px;
+            animation-delay: 1s;
+        }
+
+        .message-to {
+            font-size: 17px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .message-to strong {
+            color: #d94a7a;
+            font-size: 23px;
+            display: block;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .message-body {
+            color: #555;
+            line-height: 2;
+            font-size: 18px;
+            margin: 40px 0;
+            text-align: justify;
+        }
+
+        .message-body p {
+            margin-bottom: 25px;
+        }
+
+        .hearts-icon {
+            text-align: center;
+            font-size: 32px;
+            margin: 30px 0;
+        }
+
+        .signature {
+            color: #333;
+            font-size: 20px;
+            margin-top: 35px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Back button */
+        .back-button {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: white;
+            color: #d94a7a;
+            border: 2px solid #d94a7a;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 20px rgba(217, 74, 122, 0.25);
+            font-weight: 500;
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            background: #d94a7a;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(217, 74, 122, 0.35);
+        }
+
+        .back-button::before {
+            content: '←';
+            font-size: 18px;
+        }
+
+        /* Floating petals animation */
+        .petal {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background: url('img/459dad8f-cf28-4762-922e-500db7e5b272_removalai_preview.png') center/contain no-repeat;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 1000;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Generate multiple petals with different positions and timings */
+        .petal:nth-child(1) { left: 5%; animation-duration: 9s; animation-delay: 0s; width: 45px; height: 45px; }
+        .petal:nth-child(2) { left: 20%; animation-duration: 11s; animation-delay: 2s; width: 40px; height: 40px; }
+        .petal:nth-child(3) { left: 35%; animation-duration: 10s; animation-delay: 4s; width: 50px; height: 50px; }
+        .petal:nth-child(4) { left: 50%; animation-duration: 12s; animation-delay: 1s; width: 48px; height: 48px; }
+        .petal:nth-child(5) { left: 65%; animation-duration: 9.5s; animation-delay: 3s; width: 42px; height: 42px; }
+        .petal:nth-child(6) { left: 80%; animation-duration: 11.5s; animation-delay: 5s; width: 46px; height: 46px; }
+        .petal:nth-child(7) { left: 92%; animation-duration: 10.5s; animation-delay: 2.5s; width: 44px; height: 44px; }
+
+        @media (max-width: 768px) {
+            .main-title { 
+                font-size: 38px; 
+            }
+            .top-design { 
+                width: 250px; 
+                height: 200px; 
+            }
+            .message-card { 
+                padding: 45px 30px;
+                max-width: 90%;
+            }
+            .back-button { 
+                top: 20px; 
+                left: 20px; 
+                padding: 10px 20px; 
+                font-size: 14px; 
+            }
+            .message-to strong {
+                font-size: 20px;
+            }
+            .message-body {
+                font-size: 16px;
+                line-height: 1.8;
+            }
+            .header-text {
+                font-size: 12px;
+            }
+            .flowers img {
+                width: 90px;
+            }
+            .love-text {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 32px;
+            }
+            .message-card {
+                padding: 35px 25px;
+            }
+            .message-to strong {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating petals -->
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+
+    <div class="card-container">
+        <!-- Page 1 -->
+        <div class="page page-1" id="page1" onclick="goToPage2()">
+            <div class="top-design"></div>
+            
+            <!-- Stars decoration -->
+            <div class="star star-1"></div>
+            <div class="star star-2"></div>
+            <div class="star star-3"></div>
+            <div class="star star-4"></div>
+
+            <!-- Hearts decoration -->
+            <div class="heart-deco heart-1">❤️</div>
+            <div class="heart-deco heart-2">💕</div>
+            <div class="heart-deco heart-3">💖</div>
+            <div class="heart-deco heart-4">💕</div>
+            <div class="heart-deco heart-5">💕</div>
+
+            <div class="header-text">TO MY GWAPA NA BEBE</div>
+            
+            <div class="flowers">
+                <img src="img/bouquet.png" alt="Flowers">
+            </div>
+
+            <h1 class="main-title">Happy Valentine's<br>Day Love</h1>
+
+            <p class="love-text">Love you forever</p>
+
+            <div class="tap-indicator">Tap to open</div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page page-2 hidden" id="page2">
+            <button class="back-button" onclick="goToPage1()">Back</button>
+            
+            <div class="message-card">
+                <span class="corner-heart corner-heart-1">❤️</span>
+                <span class="corner-heart corner-heart-2">💗</span>
+                
+                <p class="message-to">Para sa <strong>pinakagwapa ug importanteng tawo sa akong kinabuhi</strong></p>
+                
+                <div class="message-body">
+                    <p>Naa napod ko ahaha, wanako kabalo sa akong isulti kanimo hehe, pero .....</p>
+                    
+                    <p>
+                        Thank you kaayo for being with me through highs and lows. 
+                        di nako mag drama ahahahaha, pero honestly, happy kaayo 
+                        ko nga ikaw akong kuyog and I appreciate every second 
+                        we spend together dili lang i appreciate ako jud i cherish hehe.
+                        I love you always!
+                    </p>
+                </div>
+                
+                <div class="hearts-icon">💕</div>
+
+                <p class="signature">From Nads</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToPage2() {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+        }
+
+        function goToPage1() {
+            event.stopPropagation();
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page1').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
